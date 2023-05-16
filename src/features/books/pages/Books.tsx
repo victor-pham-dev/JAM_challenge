@@ -45,7 +45,7 @@ export default function HomePage() {
       <Col span={24}>
         <Row gutter={[16, 16]}>
           {booksMemo.map((item, i) => (
-            <Col key={`book ${i}`} xxl={6} onClick={() => handleViewDetail(i)}>
+            <Col key={`book ${i}`} xxl={6} xs={12} onClick={() => handleViewDetail(i)}>
               <BooksCard {...item} />
             </Col>
           ))}
