@@ -19,15 +19,25 @@ export default function HomePage() {
     dispatch(fetchBooks());
     dispatch(bookReducer.actions.resetDetail());
   }, []);
+  const [filter, setFilter] = useState<string | undefined>(undefined)
   const listBook = useSelector((state: RootStateProps) => state.books.listBooks);
 
-  const booksMemo = useMemo(() => listBook, [listBook]);
+  const booksMemo = useMemo(() => {
+    if(filter !== undefined && filter.trim().length > 0){
+      const filterBooks = listBook.filter(item => item.title.toLowerCase().includes(filter.toLowerCase()))
+      return filterBooks
+    }else{
+      return listBook
+    }
+  }, [filter,listBook]);
+
   function handleViewDetail(index: number) {
     const book = listBook[index];
     dispatch(bookReducer.actions.viewDetail(book));
     const pathToNavigate = `/${PATH.BOOKS}/${book.title}`;
     return navigate(pathToNavigate);
   }
+
 
   return (
     <Row gutter={[0, 20]}>
@@ -43,7 +53,8 @@ export default function HomePage() {
         )}
       </Col>
       <Col span={24}>
-        <Row gutter={[16, 16]}>
+        <Row gutter={[16, 16]} justify='center'>
+          <Input placeholder='Enter name to search' onChange={e => setFilter(e.target.value)} />
           {booksMemo.map((item, i) => (
             <Col key={`book ${i}`} xxl={6} xs={12} onClick={() => handleViewDetail(i)}>
               <BooksCard {...item} />
