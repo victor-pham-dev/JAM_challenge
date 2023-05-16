@@ -1,0 +1,54 @@
+Git knowledge:
+
+1. How do I create a new branch in Git?
+`git branch branchName`
+
+2. How do I switch branches in Git?
+ `git checkout branchName`
+
+3. How do I push changes to a remote repository?
+`git push origin  branchName`
+
+4. Write a script that will take a list of files and move them to a new branch.
+`
+new_branch="new-branch"
+
+  git branch $new_branch
+
+  git checkout $new_branch
+
+  for file in "$@"; do
+    git mv $file .
+  done
+
+  git commit -m "Create new branch and move change files" 
+
+
+  git push origin $new_branch
+`
+
+5. Write a script that will clone a remote repository and checkout a specific branch.
+`
+  remote_url="https://github.com/username/repository.git"
+
+  branch="feature-branch"
+
+  git clone $remote_url
+
+  cd repository
+
+  git checkout $branch
+`
+
+6. Write a script that will compare two different branches and list the differences in their contents.
+`
+branch1="branch1"
+branch2="branch2"
+git diff $branch1..$branch2
+`
+
+7. Create a script that will list all commits made by a specific user.
+`
+user="username"
+git log --author=$user
+`
