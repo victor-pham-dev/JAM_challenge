@@ -9,7 +9,7 @@ interface Props {
 export default function AppLayout({ children }: Props) {
   return (
     <Row justify="center">
-      <Col xxl={16}>
+      <Col xxl={16} xs={24}>
         {/* header */}
         <Header />
         {/* app */}
